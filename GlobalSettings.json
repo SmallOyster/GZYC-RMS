@@ -1,0 +1,11 @@
+{
+    "System": {
+        "Title": "育才报修管理系统",
+        "SessionPrefix": "YC_RMS_",
+        "CacheList": "登录记录,login"
+    },
+    "Global": {
+        "Notice_Content": "开工大吉！",
+        "Notice_PubTime": "2017-11-18 22:38:37"
+    }
+}
