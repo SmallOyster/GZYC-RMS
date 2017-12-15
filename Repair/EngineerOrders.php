@@ -76,7 +76,7 @@ for($i=$Begin;$i<$Limit;$i++){
   <td>
     <button class="btn btn-info" onclick='showOrderDetail("<?php echo $id; ?>")'>详细</button>
     <?php if($status==1){ ?>
-    <button class="btn btn-warning" onclick='orderTaking("<?php echo $id; ?>")'>接单</button>
+    <button class="btn btn-warning" onclick='receiveOrder("<?php echo $id; ?>")'>接单</button>
     <?php }elseif($status==2){ ?>
     <button class="btn btn-success" onclick='repairFinish("<?php echo $id; ?>")'>修完</button>
     <button class="btn btn-primary" onclick='showSendRepair("<?php echo $id; ?>","<?php echo $equipment; ?>","<?php echo $content; ?>")'>送修</button>
@@ -93,7 +93,7 @@ for($i=$Begin;$i<$Limit;$i++){
 <script>
 var token = "<?php echo $JSToken; ?>";
 
-function orderTaking(id){
+function receiveOrder(id){
   lockScreen();
   $.ajax({
     url:"AJAX/Engineer_UpdateOrderStatus.php",

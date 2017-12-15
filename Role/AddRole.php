@@ -5,9 +5,10 @@ if(isset($_POST) && $_POST){
   $RoleName=$_POST['RoleName'];
   $Brief=$_POST['Brief'];
   $isEngineer=$_POST['isEngineer'];
+  $isClassTch=$_POST['isClassTch'];
   
-  $sql="INSERT INTO roles(RoleName,Brief,isSuper,isEngineer) VALUES(?,?,'0',?)";
-  $rs=PDOQuery($dbcon,$sql,[$RoleName,$Brief,$isEngineer],[PDO::PARAM_STR,PDO::PARAM_STR,PDO::PARAM_INT]);
+  $sql="INSERT INTO roles(RoleName,Brief,isSuper,isEngineer,isClassTch) VALUES (?,?,'0',?,?)";
+  $rs=PDOQuery($dbcon,$sql,[$RoleName,$Brief,$isEngineer,$isClassTch],[PDO::PARAM_STR,PDO::PARAM_STR,PDO::PARAM_INT,PDO::PARAM_INT]);
 
   if($rs[1]==1){
     echo "<script>alert('新增角色成功！');window.location.href='$rtnURL';</script>";
@@ -24,13 +25,23 @@ if(isset($_POST) && $_POST){
   <div class="col-md-offset-2" style="line-height:12px;">
     <div class="input-group">
       <span class="input-group-addon">角色名称</span>
-      <input type="text" class="form-control" name="RoleName" required>
+      <input type="text" class="form-control" name="RoleName" autocomplete="off" required>
+      <span class="input-group-addon" id="forgot">&lt;</span>
+    </div>
+    <hr>
+    <div class="input-group">
+      <span class="input-group-addon">是否为工程师</span>
+      <select class="form-control" name="isEngineer">
+        <option selected disabled>--- 请选择 ---</option>
+        <option value="1">是 √</option>
+        <option value="0">否 ×</option>
+      </select>
       <span class="input-group-addon" id="forgot">&lt;</span>
     </div>
     <br>
     <div class="input-group">
-      <span class="input-group-addon">是否为工程师</span>
-      <select class="form-control" name="isEngineer">
+      <span class="input-group-addon">是否为班主任</span>
+      <select class="form-control" name="isClassTch">
         <option selected disabled>--- 请选择 ---</option>
         <option value="1">是 √</option>
         <option value="0">否 ×</option>

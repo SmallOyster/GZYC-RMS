@@ -1,4 +1,9 @@
 <?php
+$isEngineer=getSess(Prefix."isEngineer");
+$SchoolGrade=getSess(Prefix."SchoolGrade");
+$SchoolClass=getSess(Prefix."SchoolClass");
+$showGrade=parseGrade($SchoolGrade);
+
 $Nav_rs=PDOQuery($dbcon,"SELECT * FROM menus WHERE FatherID=0",[],[]);
 $TotalFr=sizeof($Nav_rs[0]);
 $AllPurv=isset($_SESSION[Prefix."AllPurv"])?$_SESSION[Prefix."AllPurv"]:goIndex();
@@ -103,13 +108,13 @@ function goIndex(){
         <li><a href="javascript:void(0)">
           角色：<font color="#F57C00"><?php echo $RoleName; ?></font>
         </a></li>
+        <?php if($isEngineer!="1"){ ?>
+        <li><a href="javascript:void(0)">
+          班级：<font color="blue"><?php echo $showGrade."(".$SchoolClass.")班"; ?></font>
+        </a></li>
+        <?php } ?>
         <li class="divider"></li>
-        <?php
-        if(GetSess(Prefix."isAthlete")==1){
-        ?>
-        <li><a href="index.php?file=Athlete&action=EditAthProfile.php">修改运动员资料</a></li>       
-        <?php } ?>      
-        <li><a href="index.php?file=User&action=UpdatePersonalProfile.php">修改用户名/密码</a></li>
+        <li><a href="index.php?file=User&action=UpdatePersonalProfile.php">修改个人资料</a></li>
         <li><a href="User/Logout.php">安全退出系统</a></li>
       </ul>
     </li>

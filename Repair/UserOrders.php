@@ -4,12 +4,17 @@
 * @name 育才报修管理系统 用户-我的报修单
 * @copyright 版权所有：小生蚝 <master@xshgzs.com>
 * @create 创建时间：2017-11-19
-* @modify 最后修改时间：2017-12-02
+* @modify 最后修改时间：2017-12-12
 * ----------------------------------------
 */
 
 $nowUserID=getSess(Prefix."UserID");
-$list=PDOQuery($dbcon,"SELECT * FROM repairs WHERE create_user_id=? ORDER BY status DESC,create_time",[$nowUserID],[PDO::PARAM_INT]);
+$isClassTch=getSess(Prefix."isClassTch");
+$schoolGrade=getSess(Prefix."SchoolGrade");
+$schoolClass=getSess(Prefix."SchoolClass");
+
+$sql="SELECT * FROM repairs WHERE create_user_id=? ORDER BY status DESC,create_time";
+$list=PDOQuery($dbcon,$sql,[$nowUserID],[PDO::PARAM_INT]);
 $total=count($list[0]);
 
 // 分页代码[Begin]
@@ -35,6 +40,10 @@ if($Limit>$total){$Limit=$total;}
   echo "<h3>共 <font color=red>{$total}</font> 张报修单</h3>";
   ?>
 </center>
+<hr>
+
+<a class="btn btn-success" href="index.php?file=Repair&action=CreateOrder.php" style="width:98%">新 建 报 修 单 &gt;</a>
+
 <hr>
 
 <table class="table table-hover table-striped table-bordered" style="border-radius: 5px; border-collapse: separate;">
@@ -142,23 +151,23 @@ function showOrderDetail(id){
       <div class="modal-body">
         <table class="table table-hover table-striped table-bordered" style="border-radius: 5px; border-collapse: separate;">
           <tr>
-            <th>ID</th>
+            <th>报修单ID</th>
             <td><p id="id"></p></td>
           </tr>
           <tr>
-            <th>设备所在场室</th>
-            <td><p id="place"></p></td>
+            <th>设备名称</th>
+            <td><p id="equipment" style="color:red"></p></td>
           </tr>
           <tr>
-            <th>设备名称</th>
-            <td><p id="equipment"></p></td>
+            <th>设备所在场室</th>
+            <td><p id="place" style="color:green"></p></td>
           </tr>
           <tr>
             <th>故障简述</th>
-            <td><p id="title"></p></td>
+            <td><p id="title" style="color:blue"></p></td>
           </tr>
           <tr>
-            <th>故障内容</th>
+            <th>故障具体内容</th>
             <td><p id="content"></p></td>
           </tr>
           <tr>

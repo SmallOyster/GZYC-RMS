@@ -1,10 +1,11 @@
 <?php
+
 /**
 * ----------------------------------------
 * @name 育才报修管理系统 PHP公用函数库
 * @copyright 版权所有：小生蚝 <master@xshgzs.com>
 * @create 创建时间：2016-09-16
-* @modify 最后修改时间：2017-11-22
+* @modify 最后修改时间：2017-12-12
 * ----------------------------------------
 */
 
@@ -24,39 +25,6 @@ require_once("Package/Settings.class.php");
 /* Require Class <Cache> */
 require_once("Package/Cache.class.php");
 
-
-
-/**
-* ------------------------------
-* parseOrderStatus 显示报修单状态文字
-* ------------------------------
-* @param String 报修单状态码
-* ------------------------------
-* @return String 报修单状态文字
-* ------------------------------
-**/
-function parseOrderStatus($status)
-{
-  switch($status){
-    case "0":
-      $rtn="已结束";
-      break;
-    case "1":
-      $rtn="<font color='red'>待接单</font>";
-      break;
-    case "2":
-      $rtn="<font color='green'>待维修</font>";
-      break;
-    case "3":
-      $rtn="<font color='blue'>送修中</font>";
-      break;
-    default:
-      $rtn="/";
-      break;
-  }
-  
-  return $rtn;
-}
 
 
 /**

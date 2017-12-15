@@ -22,7 +22,7 @@
     <p class="text-left"><br>用户名</p>
     <input class="form-control" id="UserName" autocomplete="off" onkeyup="if(event.keyCode==13)$('#Password')[0].focus();">
 
-      <p class="text-left"><br>密码（<a href="ForgetPwd.php" target="_blank" style="font-weight:bolder;color:red;">忘记密码</a>）</p>
+      <p class="text-left"><br>密码（<a onclick='alert("请联系管理员！");' style="font-weight:bolder;color:red;">忘记密码</a>）</p>
       <input type="password" class="form-control" id="Password" onkeyup="if(event.keyCode==13)toLogin();">
 
       <br>

@@ -10,9 +10,10 @@ if(isset($_POST) && $_POST){
   $RoleName=$_POST['RoleName'];
   $Brief=$_POST['Brief'];
   $isEngineer=$_POST['isEngineer'];
-
-  $sql="UPDATE roles SET RoleName=?,Brief=?,isEngineer=? WHERE RoleID=?";
-  $rs=PDOQuery($dbcon,$sql,[$RoleName,$Brief,$isEngineer,$RoleID],[PDO::PARAM_STR,PDO::PARAM_STR,PDO::PARAM_INT,PDO::PARAM_INT]);
+  $isClassTch=$_POST['isClassTch'];
+  
+  $sql="UPDATE roles SET RoleName=?,Brief=?,isEngineer=?,isClassTch=? WHERE RoleID=?";
+  $rs=PDOQuery($dbcon,$sql,[$RoleName,$Brief,$isEngineer,$isClassTch,$RoleID],[PDO::PARAM_STR,PDO::PARAM_STR,PDO::PARAM_INT,PDO::PARAM_INT,PDO::PARAM_INT]);
 
   if($rs[1]==1){
     echo "<script>alert('修改成功！');window.location.href='$rtnURL';</script>";
@@ -32,10 +33,20 @@ if(isset($_POST) && $_POST){
       <input type="text" class="form-control" name="RoleName" value="<?php echo $RoleName; ?>">
       <span class="input-group-addon" id="forgot">&lt;</span>
     </div>
-    <br>
+    <hr>
     <div class="input-group">
       <span class="input-group-addon">是否为工程师</span>
       <select class="form-control" name="isEngineer">
+        <option selected disabled>--- 请选择 ---</option>
+        <option value="1">是 √</option>
+        <option value="0">否 ×</option>
+      </select>
+      <span class="input-group-addon" id="forgot">&lt;</span>
+    </div>
+    <br>
+    <div class="input-group">
+      <span class="input-group-addon">是否为班主任</span>
+      <select class="form-control" name="isClassTch">
         <option selected disabled>--- 请选择 ---</option>
         <option value="1">是 √</option>
         <option value="0">否 ×</option>

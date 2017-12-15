@@ -5,7 +5,7 @@ require_once("../Functions/PublicFunc.php");
 $GB_Sets=new Settings("../GlobalSettings.json");
 define("Prefix",$GB_Sets->G("SessionPrefix",2,"System"));
 
-$SessName=array(Prefix."isLogged",Prefix."UserID",Prefix."RoleID",Prefix."RealName",Prefix."RoleName",Prefix."isEngineer");
+$SessName=array(Prefix."isLogged",Prefix."UserID",Prefix."RoleID",Prefix."RealName",Prefix."RoleName",Prefix."isEngineer",Prefix."isClassTch",Prefix."SchoolGrade",Prefix."SchoolClass");
 
 if(isset($_POST) && $_POST){
   // 获取用户输入的数据
@@ -29,6 +29,8 @@ if(isset($_POST) && $_POST){
   $RealName=$rs[0][0]['RealName'];
   $Status=$rs[0][0]['Status'];
   $originPassword=$rs[0][0]['originPassword'];
+  $SchoolGrade=$rs[0][0]['SchoolGrade'];
+  $SchoolClass=$rs[0][0]['SchoolClass'];
   
   // 用户被禁用
   if($Status==0){
@@ -36,10 +38,11 @@ if(isset($_POST) && $_POST){
   }
   
   // 获取角色资料
-  $roleinfo_sql="SELECT RoleName,isEngineer FROM roles WHERE RoleID=?";
+  $roleinfo_sql="SELECT RoleName,isEngineer,isClassTch FROM roles WHERE RoleID=?";
   $roleinfo_rs=PDOQuery($dbcon,$roleinfo_sql,[$RoleID],[PDO::PARAM_INT]);
   $RoleName=$roleinfo_rs[0][0]['RoleName'];
   $isEngineer=$roleinfo_rs[0][0]['isEngineer'];
+  $isClassTch=$roleinfo_rs[0][0]['isClassTch'];
   
   // 将数据库里的输入的密码和salt合并加密
   $ipt_PW=encryptPW($ipt_PW,$salt);
@@ -48,7 +51,7 @@ if(isset($_POST) && $_POST){
   if($ipt_PW != $PW_indb){
     die();
   }else{
-    $SessVal=array("1",$UserID,$RoleID,$RealName,$RoleName,$isEngineer);
+    $SessVal=array("1",$UserID,$RoleID,$RealName,$RoleName,$isEngineer,$isClassTch,$SchoolGrade,$SchoolClass);
         
     // 设置Session
     SetSess($SessName,$SessVal);
@@ -85,7 +88,7 @@ if(isset($_POST) && $_POST){
       $re_Param=base64_decode($re_Param);
       die("1"."../index.php?re=1".$re_Param);
     }elseif($Status==1){
-      die("1"."../index.php?file=User&action=UpdatePersonalPW.php&isFirst=1&u={$ipt_UserName}&r={$RealName}");
+      die("1"."../index.php?file=User&action=UpdatePersonalProfile.php&isFirst=1&u={$ipt_UserName}&r={$RealName}");
     }else{
       die("1"."../index.php");
     }    

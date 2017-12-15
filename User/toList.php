@@ -186,58 +186,57 @@ function updateVALUE(value){
 }
 
 function getRole(ID){
- msg='';
- msg='<center>'
- +'<select name="ID" onchange="selectRole(this.options[this.options.selectedIndex].value)">'
- +'<option selected="selected" disabled>---请选择角色---</option>'
- +'<center>';
- $.ajax({
-  url:"Functions/Api/getRole.php",
-  data:{type:1},
-  type:"post",
-  dataType:"json",
-  error:function(e){alert()},
-  success:function(got){
-   for(i in got){
-    msg+='<option ';
-    for(j in got[i]){
-     if(j==="ID"){
-      msg+='value="'+got[i][j]+'">';
-     }
-     else if(j==="name"){
-      msg+=got[i][j]+"</option>";
-     }
+  msg='';
+  msg='<center>'
+     +'<select name="ID" onchange="selectRole(this.options[this.options.selectedIndex].value)">'
+     +'<option selected="selected" disabled>---请选择角色---</option>'
+     +'<center>';
+  $.ajax({
+    url:"Functions/Api/getRole.php",
+    data:{type:1},
+    type:"post",
+    dataType:"json",
+    error:function(e){alert();},
+    success:function(got){
+      for(i in got){
+        msg+='<option ';
+        for(j in got[i]){
+          if(j==="RoleID"){
+            msg+='value="'+got[i][j]+'">';
+          }else if(j==="Roleame"){
+            msg+=got[i][j]+"</option>";
+          }
+        }
+      }
+      $("#OprType").val("2");
+      $("#uID").val(ID);
+      $('#ModalTitle').html("修改用户角色");
+      $('#msg').html(msg);
+      $('#myModal').modal('show');
     }
-   }
-   $("#OprType").val("2");
-   $("#uID").val(ID);
-   $('#ModalTitle').html("修改用户角色");
-   $('#msg').html(msg);
-   $('#myModal').modal('show');
-  }
- });
+  });
 }
 
 function selectRole(rID){
- detail="";
- $.ajax({
-  url:"Functions/Api/getRole.php",
-  data:{type:2,rID:rID},
-  type:"post",
-  dataType:"json",
-  error:function(e){alert(JSON.stringify(e))},
-  success:function(got){
-   detail+='<table class="table table-hover table-striped table-bordered" style="border-radius: 5px; border-collapse: separate;"><h4><tr>';
-   for(i in got[0]){
-    if(i==="name"){
-     detail+="<th>角色名称</th><td><font color='green'>"+got[0][i]+"</font></td></tr>";
-    }else{
-     detail+="<th>角色简介</th><td><font color='blue'>"+got[0][i]+"</font></td></tr></table>";
+  detail="";
+  $.ajax({
+    url:"Functions/Api/getRole.php",
+    data:{type:2,rID:rID},
+    type:"post",
+    dataType:"json",
+    error:function(e){alert(JSON.stringify(e));},
+    success:function(got){
+      detail+='<table class="table table-hover table-striped table-bordered" style="border-radius: 5px; border-collapse: separate;"><h4><tr>';
+      for(i in got[0]){
+        if(i==="RoleName"){
+          detail+="<th>角色名称</th><td><font color='green'>"+got[0][i]+"</font></td></tr>";
+        }else if(i==="Brief"){
+          detail+="<th>角色简介</th><td><font color='blue'>"+got[0][i]+"</font></td></tr></table>";
+        }
+      }
+      $('#detail').html(detail);
     }
-   }
-   $('#detail').html(detail);
-  }
- });
+  });
 }
 
 function submitForm(){

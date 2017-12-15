@@ -67,7 +67,7 @@ function toCreateOrder(){
   }
   if(title=="" || title.length<5){
     unlockScreen();
-    $("#tips").html("请简述故障内容！");
+    $("#tips").html("请简述不少于5字的故障内容！");
     $("#myModal").modal('show');
     return false;
   }

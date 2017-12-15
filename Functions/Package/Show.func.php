@@ -5,67 +5,80 @@
 * @name PHP公用函数库 1 内容显示函数
 * @copyright 版权所有：小生蚝 <master@xshgzs.com>
 * @create 创建时间：2016-09-16
-* @modify 最后修改时间：2017-06-10
+* @modify 最后修改时间：2017-12-12
 * ----------------------------------------
 */
 
 
 /**
 * ------------------------------
-* ShowCSS 设定页面css文件
+* parseOrderStatus 显示报修单状态文字
 * ------------------------------
-* @param Arr/Str css文件路径
-* @param Arr/Str css文件名
+* @param String 报修单状态码
+* ------------------------------
+* @return String 报修单状态文字
 * ------------------------------
 **/
-function ShowCSS($Path,$FileName)
+function parseOrderStatus($status)
 {
- //两个变量的类型检测
- if(!is_array($Path) && is_array($FileName)){die("F111");}
- if(is_array($Path) && !is_array($FileName)){die("F112");}
- 
- //如果不是Array
- if(!is_array($Path) && !is_array($FileName)){
-  echo "<link rel='stylesheet' href='/res/css/$Path/$FileName.css'>";
- }
- 
- else if(is_array($Path) && is_array($FileName)){
-  $TotalPath=sizeof($Path);
-  $TotalName=sizeof($FileName);
-  
-  //判断两个Array元素数量是否相同
-  if($TotalPath != $TotalName){
-   die("F113");
+  switch($status){
+    case "0":
+      $rtn="已结束";
+      break;
+    case "1":
+      $rtn="<font color='red'>待接单</font>";
+      break;
+    case "2":
+      $rtn="<font color='green'>待维修</font>";
+      break;
+    case "3":
+      $rtn="<font color='blue'>送修中</font>";
+      break;
+    default:
+      $rtn="/";
+      break;
   }
   
-  for($i=0;$i<$TotalPath;$i++){
-   echo "<link rel='stylesheet' href='/res/css/{$Path[$i]}/{$FileName[$i]}.css'>";
-  }
- }
+  return $rtn;
 }
 
 
 /**
 * ------------------------------
-* ShowJS 加载页面JS脚本
+* parseGrade 显示数字对应的年级
 * ------------------------------
-* @param Arr/Str JS脚本文件名
+* @param String/INT 年级数字码
+* ------------------------------
+* @return String 年级名称
 * ------------------------------
 **/
-function ShowJS($FileName)
+function parseGrade($gradeNum)
 {
- //如果不是Array
- if(!is_array($FileName)){
-  echo "<script src='/res/js/$FileName.js'></script>";
- }
- 
- else if(is_array($FileName)){
-  $TotalName=sizeof($FileName);
-  
-  for($i=0;$i<$TotalName;$i++){
-   echo "<script src='/res/js/{$FileName[$i]}.js'></script>";
+  switch($gradeNum){
+    case "7":
+      $rtn="初一";
+      break;
+    case "8":
+      $rtn="初二";
+      break;
+    case "9":
+      $rtn="初三";
+      break;
+    case "10":
+      $rtn="高一";
+      break;
+    case "11":
+      $rtn="高二";
+      break;
+    case "12":
+      $rtn="高三";
+      break;
+    default:
+      $rtn="未知年级";
+      break;
   }
- }
+  
+  return $rtn;
 }
 
 
@@ -95,6 +108,15 @@ function makeOprBtn($name,$color,$file,$action,$param=array())
 }
 
 
+/**
+* ------------------------------
+* getLetter 根据字母表顺序获取字母
+* ------------------------------
+* @param INT 字母所在字母表的顺序
+* ------------------------------
+* @return String 对应字母
+* ------------------------------
+**/
 function getLetter($LetterID){
   // 首位符号是为了占位(第0个)，方便按顺序取字母
   $AllLetters="|ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -109,9 +131,11 @@ function getLetter($LetterID){
 
 /**
 * ------------------------------
-* showCNNum 显示汉字的数字
+* showCNNum 显示数字对应的汉字
 * ------------------------------
 * @param INT 一位数字
+* ------------------------------
+* @return String 数字对应的汉字
 * ------------------------------
 **/
 function showCNNum($Num){

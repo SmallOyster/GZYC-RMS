@@ -1,10 +1,10 @@
 <?php
 /**
 * ---------------------------------------
-* @name 生蚝WMS仓存管理系统
+* @name 育才报修管理系统 系统首页
 * @copyright 版权所有：小生蚝 <master@xshgzs.com>
-* @create 系统创建时间：2017-11-09
-* @modify 最后修改时间：2017-11-09
+* @create 系统创建时间：2017-11-18
+* @modify 最后修改时间：2017-11-18
 * ---------------------------------------
 */
 require_once("Functions/PDOConn.php");
@@ -29,7 +29,7 @@ unset($Query);
 
 <html>
 <head>
-  <meta name="viewport" content="wIDth=device-wIDth, initial-scale=1">
+  <meta name="viewport" content="wIDth=device-width, initial-scale=1">
   <meta name="author" content="生蚝科技 Oyster Tech">
   <link rel="shortcut icon" href="favicon.ico">
 
@@ -55,7 +55,7 @@ unset($Query);
   	
   <style>
     th{font-weight:bolder;text-align:center;}
-    body{padding-top:70px;}
+    body{padding-top:55px;}
   </style>
   
   <script>
